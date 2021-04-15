@@ -5,9 +5,9 @@ const { model, Schema } = require('mongoose')
 const postSchema = new Schema({
   body: String,
   username: String,
-  createdAt: Date,
-  comments: [{ body: String, username: String, createdAt: Date }],
-  likes: [{ username: String, createdAt: Date }],
+  createdAt: String,
+  comments: [{ body: String, username: String, createdAt: String }],
+  likes: [{ username: String, createdAt: String }],
   user: { type: Schema.Types.ObjectId, ref: 'users' },
 })
 //remember that mongoose is ORM, so we can have relations between models for user

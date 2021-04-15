@@ -9,15 +9,29 @@ const { MONGODB } = require('./config') //config is not gonna be pushed to githu
 //inside of the types we will have all our queries and say what type they return. kind of like typescript
 //the exclamation mark means that type is required
 const typeDefs = gql`
+  type Post {
+    id: ID!
+    body: String!
+    createdAt: String!
+    username: String!
+  }
   type Query {
-    getPosts
+    getPosts: [Post]
   }
 `
 
 //resolvers are attached to queries, mutations, and subscriptions. resolvers process some sort of logic and returns what the query returns
+//Queries should be async and set with a try for better error handling
 const resolvers = {
   Query: {
-    sayHi: () => 'Hello World!',
+    async getPosts() {
+      try {
+        const posts = await Post.find() // returns all posts
+        return posts
+      } catch (err) {
+        throw new Error(err)
+      }
+    },
   },
 }
 
