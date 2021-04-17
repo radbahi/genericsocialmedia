@@ -6,4 +6,7 @@ module.exports = {
   Query: {
     ...postsResolvers.Query, // spread operator? why?
   },
+  Mutation: {
+    ...usersResolvers.Mutation,
+  },
 }
