@@ -25,9 +25,11 @@ module.exports = gql`
   }
   type Mutation {
     register(registerInput: RegisterInput): User!
+    login(username: String!, password: String!): User!
   }
 `
 
+//don't need to pass any types into login mutation because all it needs is the username and password
 //search up inputs and what they do, instructor isn't clear
 //we pass in a type to the register Mutation just so it isn't a huge block of code. it also required a return of a User
 //queries are just getting data

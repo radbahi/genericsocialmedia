@@ -25,3 +25,16 @@ module.exports.validateRegisterInput = (
   return { errors, valid: Object.keys(errors).length < 1 }
   //valid's value is checking if there's any errors. if not, return true to say that the info is valid
 }
+
+module.exports.validateLoginInput = (username, password) => {
+  const errors = {}
+  if (username.trim() === '') {
+    errors.username = 'Username must not be empty'
+  }
+  if (password.trim() === '') {
+    errors.password = 'Password must not be empty'
+  }
+
+  return { errors, valid: Object.keys(errors).length < 1 }
+  //valid's value is checking if there's any errors. if not, return true to say that the info is valid
+}
