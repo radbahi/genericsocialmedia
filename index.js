@@ -13,7 +13,11 @@ const resolvers = require('./graphql/resolvers') // apparently since it's in the
 const { MONGODB } = require('./config') //config is not gonna be pushed to github, like an env file
 
 //this is how to actually make the server. remember to pass in the type definitions and resolvers.
-const server = new ApolloServer({ typeDefs, resolvers })
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => ({ req }), //context takes the request from express in order to be able to work with it for stuff like auth
+})
 mongoose
   .connect(MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
