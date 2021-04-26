@@ -1,4 +1,4 @@
-const { ApolloServer } = require('apollo-server') // apollo-server is a graphql server
+const { ApolloServer, PubSub } = require('apollo-server') // apollo-server is a graphql server. PubSub is for publishing/subscribing
 const gql = require('graphql-tag') // a dependency of apollo-server that comes installed with it
 const mongoose = require('mongoose') //mongoose is an ORM which lets us interface with our mongodb database
 
@@ -12,11 +12,13 @@ const resolvers = require('./graphql/resolvers') // apparently since it's in the
 
 const { MONGODB } = require('./config') //config is not gonna be pushed to github, like an env file
 
+const pubsub = new PubSub() //pass into context to use with our resolvers
+
 //this is how to actually make the server. remember to pass in the type definitions and resolvers.
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => ({ req }), //context takes the request from express in order to be able to work with it for stuff like auth
+  context: ({ req }) => ({ req, pubsub }), //context takes the request from express in order to be able to work with it for stuff like auth
 })
 mongoose
   .connect(MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })

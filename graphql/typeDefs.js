@@ -46,8 +46,11 @@ module.exports = gql`
     deleteComment(postId: ID!, commentId: ID!): Post!
     likePost(postId: ID!): Post
   }
+  type Subscription {
+    newPost: Post!
+  }
 `
-
+//subscriptions are used for stuff like polling or chat apps
 //don't need to pass any types into login mutation because all it needs is the username and password
 //search up inputs and what they do, instructor isn't clear
 //we pass in a type to the register Mutation just so it isn't a huge block of code. it also required a return of a User
